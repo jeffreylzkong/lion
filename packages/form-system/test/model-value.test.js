@@ -20,6 +20,8 @@ import '@lion/input-email/lion-input-email.js';
 import '@lion/input-iban/lion-input-iban.js';
 import '@lion/input-range/lion-input-range.js';
 
+import '@lion/textarea/lion-textarea.js';
+
 describe('model value', () => {
   describe('consistent init dispatch count', () => {
     const consistentCount = 1;
@@ -96,6 +98,7 @@ describe('model value', () => {
       'input-email',
       'input-iban',
       'input-range',
+      'textarea',
     ].forEach(suffix => {
       const tag = unsafeStatic(`lion-${suffix}`);
       it(`should apply to ${suffix}`, async () => {
