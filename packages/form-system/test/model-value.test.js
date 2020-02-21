@@ -7,6 +7,7 @@ import '@lion/checkbox/lion-checkbox.js';
 import '@lion/radio-group/lion-radio-group.js';
 import '@lion/radio/lion-radio.js';
 
+import '@lion/select/lion-select.js';
 import '@lion/select-rich/lion-select-rich.js';
 import '@lion/select-rich/lion-options.js';
 import '@lion/option/lion-option.js';
@@ -54,6 +55,19 @@ describe('model value', () => {
       });
     });
 
+    it('should apply to select', async () => {
+      await fixture(html`
+        <lion-select @model-value-changed="${eventSpy}">
+          <select slot="input">
+            <option value="option1"></option>
+            <option value="option2"></option>
+            <option value="option3"></option>
+          </select>
+        </lion-select>
+      `);
+      expect(eventSpy.callCount).to.equal(consistentCount);
+    });
+
     it('should apply to select-rich', async () => {
       await fixture(html`
         <lion-select-rich @model-value-changed="${eventSpy}">
@@ -63,6 +77,13 @@ describe('model value', () => {
             <lion-option .choiceValue="${'option3'}"></lion-option>
           </lion-options>
         </lion-select-rich>
+      `);
+      expect(eventSpy.callCount).to.equal(consistentCount);
+    });
+
+    it('should apply to option', async () => {
+      await fixture(html`
+        <lion-option @model-value-changed="${eventSpy}" .choiceValue="${'option'}"> </lion-option>
       `);
       expect(eventSpy.callCount).to.equal(consistentCount);
     });
