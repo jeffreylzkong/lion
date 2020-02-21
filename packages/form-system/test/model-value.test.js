@@ -28,40 +28,30 @@ describe('model value', () => {
       eventSpy = sinon.spy();
     });
 
-    it('should apply to checkbox-group', async () => {
-      await fixture(html`
-        <lion-checkbox-group @model-value-changed="${eventSpy}">
-          <lion-checkbox .choiceValue="${'option 1'}"></lion-checkbox>
-          <lion-checkbox .choiceValue="${'option 2'}"></lion-checkbox>
-          <lion-checkbox .choiceValue="${'option 3'}"></lion-checkbox>
-        </lion-checkbox-group>
-      `);
-      expect(eventSpy.callCount).to.equal(consistentCount);
-    });
+    ['checkbox', 'radio'].forEach(chunk => {
+      const groupTag = unsafeStatic(`lion-${chunk}-group`);
+      const itemTag = unsafeStatic(`lion-${chunk}`);
 
-    it('should apply to checkbox', async () => {
-      await fixture(html`
-        <lion-checkbox @model-value-changed="${eventSpy}" .choiceValue="${'option'}">
-        </lion-checkbox>
-      `);
-      expect(eventSpy.callCount).to.equal(consistentCount);
-    });
+      it(`should apply to ${chunk}-group`, async () => {
+        await fixture(html`
+          <${groupTag} @model-value-changed="${eventSpy}">
+            <${itemTag} .choiceValue="${'option1'}"></${itemTag}>
+            <${itemTag} .choiceValue="${'option2'}"></${itemTag}>
+            <${itemTag} .choiceValue="${'option3'}"></${itemTag}>
+          </${groupTag}>
+        `);
+        expect(eventSpy.callCount).to.equal(consistentCount);
+      });
 
-    it('should apply to radio-group', async () => {
-      await fixture(html`
-        <lion-radio-group @model-value-changed="${eventSpy}">
-          <lion-radio .choiceValue="${'option 1'}"></lion-radio>
-          <lion-radio .choiceValue="${'option 2'}"></lion-radio>
-        </lion-radio-group>
-      `);
-      expect(eventSpy.callCount).to.equal(consistentCount);
-    });
-
-    it('should apply to radio', async () => {
-      await fixture(html`
-        <lion-radio @model-value-changed="${eventSpy}" .choiceValue="${'option'}"> </lion-radio>
-      `);
-      expect(eventSpy.callCount).to.equal(consistentCount);
+      it(`should apply to ${chunk}`, async () => {
+        await fixture(html`
+          <${itemTag}
+            @model-value-changed="${eventSpy}"
+            .choiceValue="${'option'}">
+          </${itemTag}>
+        `);
+        expect(eventSpy.callCount).to.equal(consistentCount);
+      });
     });
 
     it('should apply to select-rich', async () => {
