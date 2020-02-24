@@ -1,5 +1,7 @@
-import { expect, fixture, html, unsafeStatic } from '@open-wc/testing';
+import { expect, fixture, html, unsafeStatic, defineCE } from '@open-wc/testing';
 import sinon from 'sinon';
+
+import { LitElement } from '@lion/core';
 
 import '@lion/checkbox-group/lion-checkbox-group.js';
 import '@lion/checkbox/lion-checkbox.js';
@@ -19,8 +21,9 @@ import '@lion/input-datepicker/lion-input-datepicker.js';
 import '@lion/input-email/lion-input-email.js';
 import '@lion/input-iban/lion-input-iban.js';
 import '@lion/input-range/lion-input-range.js';
-
 import '@lion/textarea/lion-textarea.js';
+
+import { FormatMixin } from '@lion/field';
 
 describe('model value', () => {
   describe('consistent init dispatch count', () => {
@@ -107,6 +110,56 @@ describe('model value', () => {
         `);
         expect(eventSpy.callCount).to.equal(consistentCount);
       });
+    });
+  });
+
+  describe('event', () => {
+    let el;
+    beforeEach(async () => {
+      const tag = defineCE(
+        class extends FormatMixin(LitElement) {
+          render() {
+            return html`
+              <slot name="input"></slot>
+            `;
+          }
+
+          get _inputNode() {
+            return this.querySelector('input');
+          }
+
+          set value(newVal) {
+            this._inputNode.value = newVal;
+          }
+
+          get value() {
+            return this._inputNode.value;
+          }
+        },
+      );
+      el = await fixture(`
+        <${tag}><input slot="input"></input></${tag}>
+      `);
+    });
+
+    it('should NOT bubble', async () => {
+      const spy = sinon.spy();
+
+      el.addEventListener('model-value-changed', spy);
+      el.modelValue = 'foo';
+
+      const e = spy.firstCall.args[0];
+      expect(e.bubbles).to.be.false;
+    });
+
+    it('should NOT go past component boundaries', () => {
+      const spy = sinon.spy();
+
+      el.addEventListener('model-value-changed', spy);
+      el.modelValue = 'foo';
+
+      const e = spy.firstCall.args[0];
+      expect(e.composed).to.be.false;
     });
   });
 });
