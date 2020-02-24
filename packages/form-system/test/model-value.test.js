@@ -23,6 +23,9 @@ import '@lion/input-iban/lion-input-iban.js';
 import '@lion/input-range/lion-input-range.js';
 import '@lion/textarea/lion-textarea.js';
 
+import '@lion/fieldset/lion-fieldset.js';
+import '@lion/form/lion-form.js';
+
 import { FormatMixin } from '@lion/field';
 
 describe('model value', () => {
@@ -110,6 +113,70 @@ describe('model value', () => {
         `);
         expect(eventSpy.callCount).to.equal(consistentCount);
       });
+    });
+  });
+
+  describe('consistent interaction dispatch count', () => {
+    it('should apply to checkbox-group', async () => {
+      const el = await fixture(html`
+        <lion-checkbox-group>
+          <lion-checkbox .choiceValue="${'option1'}"></lion-checkbox>
+          <lion-checkbox .choiceValue="${'option2'}"></lion-checkbox>
+          <lion-checkbox .choiceValue="${'option3'}"></lion-checkbox>
+        </lion-checkbox-group>
+      `);
+      const spy = sinon.spy();
+      el.addEventListener('model-value-changed', spy);
+
+      const option2 = el.querySelector('lion-checkbox:nth-child(2)');
+      option2.checked = true;
+      expect(spy.callCount).to.equal(1);
+
+      spy.resetHistory();
+
+      const option3 = el.querySelector('lion-checkbox:nth-child(3)');
+      option3.checked = true;
+      expect(spy.callCount).to.equal(1);
+    });
+
+    it('should apply to checkbox', async () => {
+      const el = await fixture(html`
+        <lion-checkbox .choiceValue="${'option'}"></lion-checkbox>
+      `);
+
+      const spy = sinon.spy();
+      el.addEventListener('model-value-changed', spy);
+
+      el.checked = true;
+      expect(spy.callCount).to.equal(1);
+
+      spy.resetHistory();
+
+      el.checked = false;
+      expect(spy.callCount).to.equal(1);
+    });
+
+    it('should apply to radio-group', async () => {
+      const el = await fixture(html`
+        <lion-radio-group>
+          <lion-radio .choiceValue="${'option1'}"></lion-radio>
+          <lion-radio .choiceValue="${'option2'}"></lion-radio>
+          <lion-radio .choiceValue="${'option3'}"></lion-radio>
+        </lion-radio-group>
+      `);
+
+      const spy = sinon.spy();
+      el.addEventListener('model-value-changed', spy);
+
+      const option2 = el.querySelector('lion-radio:nth-child(2)');
+      option2.checked = true;
+      expect(spy.callCount).to.equal(1);
+
+      spy.resetHistory();
+
+      const option3 = el.querySelector('lion-radio:nth-child(3)');
+      option3.checked = true;
+      expect(spy.callCount).to.equal(1);
     });
   });
 
