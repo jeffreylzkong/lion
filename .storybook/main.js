@@ -2,11 +2,7 @@ const fs = require('fs');
 const path = require('path');
 
 module.exports = {
-  stories: [
-    '../packages/*/stories/*.stories.{js,mdx}',
-    '../packages/helpers/*/stories/*.stories.{js,mdx}',
-    '../demo/stories/*.stories.{js,mdx}',
-  ],
+  stories: ['../ftnt/*/stories/*.stories.{js,mdx}'],
   esDevServer: {
     nodeResolve: true,
     watch: true,

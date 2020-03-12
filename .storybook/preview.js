@@ -28,9 +28,10 @@ async function run() {
     options: {
       showRoots: true,
       storySort: sortEachDepth([
-        ['Intro', 'Forms', 'Buttons', 'Overlays', 'Navigation', 'Localize', 'Icons', '...'],
-        ['Intro', 'Features Overview', '...', 'Validation', 'System'],
-        ['Overview', '...', '_internals'],
+        ['FTNT'],
+        // ['Intro', 'Forms', 'Buttons', 'Overlays', 'Navigation', 'Localize', 'Icons', '...'],
+        // ['Intro', 'Features Overview', '...', 'Validation', 'System'],
+        // ['Overview', '...', '_internals'],
       ]),
     },
   });

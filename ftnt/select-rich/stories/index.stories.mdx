@@ -1,0 +1,46 @@
+import { Story, Meta, html, Preview } from '@open-wc/demoing-storybook';
+import '../fi-ui-select-rich.js';
+import '../fi-ui-options.js';
+import '../fi-ui-option.js';
+
+<Meta title="FTNT/Select Rich" parameters={{ component: 'fi-ui-select-rich' }} />
+
+# Select Rich
+
+`fi-ui-select-rich` component is a 'rich' version of the native `<select>` element.
+It allows to provide fully customized options and a fully customized invoker button.
+The component is meant to be used whenever the native `<select>` doesn't provide enough
+styling/theming/user interaction opportunities.
+
+Its implementation is based on the following Design pattern:
+<https://www.w3.org/TR/wai-aria-practices/examples/listbox/listbox-collapsible.html>
+
+<Story name="Default">
+  {html`
+    <fi-ui-select-rich name="favoriteColor" label="Favorite color">
+      <fi-ui-options slot="input">
+        <fi-ui-option .choiceValue=${'red'}>Red</fi-ui-option>
+        <fi-ui-option .choiceValue=${'hotpink'} checked>Hotpink</fi-ui-option>
+        <fi-ui-option .choiceValue=${'teal'}>Teal</fi-ui-option>
+      </fi-ui-options>
+    </fi-ui-select-rich>
+  `}
+</Story>
+
+```html
+<fi-ui-select-rich name="favoriteColor" label="Favorite color">
+  <fi-ui-options slot="input">
+    <fi-ui-option .choiceValue=${'red'}>Red</fi-ui-option>
+    <fi-ui-option .choiceValue=${'hotpink'} checked>Hotpink</fi-ui-option>
+    <fi-ui-option .choiceValue=${'teal'}>Teal</fi-ui-option>
+  </fi-ui-options>
+</fi-ui-select-rich>
+```
+
+## Features
+
+- Fully accessible
+- Flexible api
+- Fully customizable option elements
+- Fully customizable invoker element
+- Mimics native select interaction mode (windows/linux and mac)
