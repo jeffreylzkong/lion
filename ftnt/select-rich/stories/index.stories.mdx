@@ -17,24 +17,28 @@ Its implementation is based on the following Design pattern:
 
 <Story name="Default">
   {html`
-    <fi-ui-select-rich name="favoriteColor" label="Favorite color">
+  <div style="width: 300px;">
+    <fi-ui-select-rich name="favoriteColor" label="Favorite color" .config=${{inheritsReferenceWidth: 'full'}}>
       <fi-ui-options slot="input">
         <fi-ui-option .choiceValue=${'red'}>Red</fi-ui-option>
         <fi-ui-option .choiceValue=${'hotpink'} checked>Hotpink</fi-ui-option>
         <fi-ui-option .choiceValue=${'teal'}>Teal</fi-ui-option>
       </fi-ui-options>
     </fi-ui-select-rich>
+  </div>
   `}
 </Story>
 
 ```html
-<fi-ui-select-rich name="favoriteColor" label="Favorite color">
-  <fi-ui-options slot="input">
-    <fi-ui-option .choiceValue=${'red'}>Red</fi-ui-option>
-    <fi-ui-option .choiceValue=${'hotpink'} checked>Hotpink</fi-ui-option>
-    <fi-ui-option .choiceValue=${'teal'}>Teal</fi-ui-option>
-  </fi-ui-options>
-</fi-ui-select-rich>
+<div style="width: 300px;">
+    <fi-ui-select-rich name="favoriteColor" label="Favorite color" .config=${{inheritsReferenceWidth: 'full'}}>
+      <fi-ui-options slot="input">
+        <fi-ui-option .choiceValue=${'red'}>Red</fi-ui-option>
+        <fi-ui-option .choiceValue=${'hotpink'} checked>Hotpink</fi-ui-option>
+        <fi-ui-option .choiceValue=${'teal'}>Teal</fi-ui-option>
+      </fi-ui-options>
+    </fi-ui-select-rich>
+  </div>
 ```
 
 ## Features
